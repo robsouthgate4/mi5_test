@@ -1,0 +1,9 @@
+/* ********************* */
+/*	BREAKPOINTS
+/* ********************* */
+
+@mixin breakpoint($point) {
+	@if $point == 670 {
+		@media (min-width: 670px) { @content ; }
+	}
+}
