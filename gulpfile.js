@@ -4,11 +4,13 @@ const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync').create();
 const del = require('del');
 const wiredep = require('wiredep').stream;
-const runSequence = require('run-sequence');
 const browserify = require('browserify');
+const glob = require('glob');
 const babelify = require('babelify');
 const buffer = require('vinyl-buffer');
 const source = require('vinyl-source-stream');
+const runSequence = require('run-sequence');
+
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -32,15 +34,13 @@ gulp.task('styles', () => {
 
 gulp.task('scripts', () => {
 	const b = browserify({
-		entries: 'app/scripts/main.js',
+		entries: ['app/scripts/main.js'],
 		transform: babelify,
 		debug: true
 	});
     return b.bundle()
 	    .pipe(source('bundle.js'))
 		.pipe($.plumber())
-	    .pipe($.sourcemaps.init())
-	    .pipe($.babel())
 		.pipe(buffer())
 	    .pipe($.sourcemaps.init({loadMaps: true}))
 		.pipe($.sourcemaps.write('.'))

@@ -1,28 +1,42 @@
 export default class Mi5 {
+	
+	constructor() {
+		this.calls = [];
+		this.texts = [];
+	}
+
     // Returns a set of logs per person
     log(person) {
 
-		let logArray = [];
+		const calls = this._matchPersonToCall(person);
+		const texts = this._matchPersonToTexts(person);
 
-		const calls = person.calls;
-		const texts = person.texts[0];
-
-		// If person has made no calls or texts, log 'No entries'
-		if ( calls && texts == undefined ) {
-			return 'No Entries';
-		} else {
-			for ( let call of calls ) {
-				logArray.push(`${this._removeLastNames(call.from)} called ${this._removeLastNames(call.to)} from ${this._removeLastNames(call.phoneOwner)}'s phone [${call.phoneNumber}]`);
-			}
-			for ( let text of texts ) {
-				logArray.push(`${this._removeLastNames(text.from)} texted ${this._removeLastNames(text.to)} from ${this._removeLastNames(text.phoneOwner)}'s phone [${text.phoneNumber}]`);
-			}
-			return logArray;
-		}
+		return [calls, texts];
 
     }
 
-	// return only the first name of name string
+	trackCall(callItem) {
+		this.calls.push(callItem);
+	}
+
+	trackTexts(textMessage) {
+		this.texts.push(textMessage);
+	}
+
+	_convertToLogString() {
+		
+	}
+
+	_matchPersonToCall(person){
+		return this.calls.filter((call, index) => call.from === person.name);
+	}
+	
+	_matchPersonToTexts(person){
+		console.log(person.name);
+		console.log(this.texts);
+		return this.texts[0].filter((text, index) => text.from === person.name);
+	}
+
 	_removeLastNames(name) {
 		return name.substr(0, name.indexOf(' '));
 	}	
