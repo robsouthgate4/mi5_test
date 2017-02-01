@@ -5,17 +5,19 @@ export default class Mi5 {
     log(person) {
 
 		const calls = person.getAllCalls();
-		const texts = this._flattenArray(person, person.getAllTexts());
+		const texts = this._flattenArray(person.getAllTexts());
+		const callsAndTexts = this._flattenArray([calls, texts]);
 
 		if (calls.length === 0 && texts.length === 0) {
 			return 'No Entries';
 		} else {
-			return [this._convertToLogString(calls), this._convertToLogString(texts)];
+			return this._convertToLogString(callsAndTexts);
 		}
 
     }
 
 	_convertToLogString(itemsToConvert) {
+
 		let stringArray = [];
 		itemsToConvert.forEach((item, index) => {
 			if (item.type === 'call') {
@@ -26,15 +28,20 @@ export default class Mi5 {
 
 		});
 		return stringArray;
+
 	}
 
-	_flattenArray(person, theArray) {
+	_flattenArray(theArray) {
+
 		const flattenedArray = [].concat.apply([],theArray);
-		return flattenedArray.filter((text, index) => text.from === person.name);
+		return flattenedArray;
+
 	}
 
 	_removeLastNames(name) {
+
 		return name.substr(0, name.indexOf(' '));
+
 	}
 
 };

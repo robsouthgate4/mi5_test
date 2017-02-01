@@ -3,7 +3,7 @@
 /* ********************* */
 
 @mixin breakpoint($point) {
-	@if $point == 670 {
-		@media (min-width: 670px) { @content ; }
+	@if $point == 810 {
+		@media (min-width: 810px) { @content ; }
 	}
 }

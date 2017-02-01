@@ -13,10 +13,8 @@ const erin = new Person('Erin Davies', 'Erin_davis.png', '07375-229473', 3);
 // Person array
 personArray.push(dan, anthony, alex, erin);
 
-const peopleContainer = document.querySelector('.people-of-interest-inner');
-const modal = document.querySelector('#modal');
-const closeModal = document.querySelector('.close');
 
+const peopleContainer = document.querySelector('.people-of-interest-inner');
 // Write each person to the Dom
 personArray.forEach((person, index) => {
 	peopleContainer.innerHTML += createPersonHtml(person);;
@@ -45,31 +43,43 @@ const personListItem = document.querySelectorAll('.person');
 
 // Person box click
 personListItem.forEach((personListItem, index) => {
+
 	personListItem.addEventListener('click', function(event){
 		handlePersonClick(this);
 	});
+
 });
 
 // Close modal click
+
+const closeModal = document.querySelector('.close');
+
 closeModal.addEventListener('click', function(e){
+
 	toggleModal();
 	e.preventDefault();
+
 });
 
 // Handle person click event
 function handlePersonClick(personNode) {
+
 	let personIdentifier = personNode.getAttribute('data-personid');
+
 	personArray.forEach((person, index) => {
 		if ( person.personId == personIdentifier ) {
 			let logs = mi5.log(person);
 			writeLogsToDom(person, logs);
 		}
 	});
+
 	toggleModal();
+
 }
 
 
 function createPersonHtml(person) {
+
 	return `<article class="person" data-personid="${person.personId}">
 						<img src="../images/${person.profileImage}" alt=""/>
 						<div>
@@ -77,6 +87,7 @@ function createPersonHtml(person) {
 							<span> ${person.mobileNumber} </span>
 						</div>
 			</article>`;
+
 }
 
 
@@ -90,10 +101,22 @@ function writeLogsToDom(person, logs){
 	nameHtml.innerHTML = person.name;
 	phoneNumberHtml.innerHTML = person.mobileNumber;
 	profileImageHtml.src = `../images/${person.profileImage}`;
-	logsHtml.innerHTML = logs;
+	logsHtml.innerHTML = formatLogs(logs);
 
 }
 
+// Wrap each log in array in p tags
+function formatLogs(logs) {
+	if(typeof(logs) === 'string') {
+		return logs;
+	} else {
+		let wrappedLogs = logs.map( log => `<p>// ${log}</p>`);
+		return wrappedLogs.join("");
+	}
+}
+
+const modal = document.querySelector('#modal');
+// Toggle modal visibilty
 function toggleModal() {
 	modal.classList.toggle('open');
 }
