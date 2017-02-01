@@ -1,15 +1,31 @@
 var chai = require('chai');
 chai.should();
-var assert = chai.assert;
-var expect = chai.expect;
 
-var Mi5 = require('../scripts/Mi5.js');
-var Person = require('../scripts/Person.js');
+import Mi5 from '../scripts/Mi5.js';
+import Person from '../scripts/Mi5.js';
 
 describe('Mi5', function() {
-	describe('#log()', function() {
-		it('should return string "No Entries" when no text or call arrays defined', function() {
-			assert.equal(-1, [1,2,3].indexOf(4));
+	describe('_removeLastNames', function() {
+
+		let mi5;
+
+		beforeEach(() => {
+			mi5 = new Mi5();
+		});
+
+		it('returns the first name', () => {
+			mi5._removeLastNames('Dan Winters').should.equal('Dan');
+			mi5._removeLastNames('Dan Winters').should.be.a('string');
+		});
+
+	});
+
+	describe('_convert toLogString()', function() {
+
+		let mi5;
+
+		beforeEach(() => {
+			mi5 = new Mi5();
 		});
 	});
 });

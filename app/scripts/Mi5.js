@@ -1,5 +1,5 @@
 export default class Mi5 {
-	
+
 	constructor() {
 		this.calls = [];
 		this.texts = [];
@@ -11,8 +11,7 @@ export default class Mi5 {
 		const calls = this._matchPersonToCall(person);
 		const texts = this._matchPersonToTexts(person);
 
-		return [calls, texts];
-
+		return [this._convertToLogString(calls), this._convertToLogString(texts)];
     }
 
 	trackCall(callItem) {
@@ -23,22 +22,32 @@ export default class Mi5 {
 		this.texts.push(textMessage);
 	}
 
-	_convertToLogString() {
-		
+	_convertToLogString(itemsToConvert) {
+		let stringArray = []
+		itemsToConvert.forEach((item, index) => {
+			if (item.type === 'call') {
+				stringArray.push(`${this._removeLastNames(item.from)} called ${this._removeLastNames(item.to)} from ${this._removeLastNames(item.phoneOwner)}'s phone (${this._removeLastNames(item.phoneNumber)})`);
+			} else {
+				stringArray.push(`${this._removeLastNames(item.from)} texted ${this._removeLastNames(item.to)} from ${this._removeLastNames(item.phoneOwner)}'s phone (${this._removeLastNames(item.phoneNumber)})`);
+			}
+
+		});
+		return stringArray;
 	}
 
 	_matchPersonToCall(person){
-		return this.calls.filter((call, index) => call.from === person.name);
+		const calls = this.calls;
+		return calls.filter((call, index) => call.from === person.name);
 	}
-	
+
 	_matchPersonToTexts(person){
-		console.log(person.name);
-		console.log(this.texts);
-		return this.texts[0].filter((text, index) => text.from === person.name);
+		const texts = this.texts;
+		const flattenedArray = [].concat.apply([],texts);
+		return flattenedArray.filter((text, index) => text.from === person.name);
 	}
 
 	_removeLastNames(name) {
 		return name.substr(0, name.indexOf(' '));
-	}	
+	}
 
 };
