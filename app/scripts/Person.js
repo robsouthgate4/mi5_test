@@ -1,14 +1,20 @@
 
 export default class Person {
 
-    constructor(name, profileImage, mobileNumber, mi5) {
+    constructor(name, profileImage, mobileNumber, personId) {
+
+		this.personId = personId;
         this.name = name;
 		this.mobileNumber = mobileNumber;
 		this.profileImage = profileImage;
-		this.mi5 = mi5;
+
+		this.calls = [];
+		this.texts = [];
+
     }
 
     call(mobilePhone, callee) {
+
 		const callObj =  {
 			"type": "call",
 			"from": this.name,
@@ -16,10 +22,13 @@ export default class Person {
 			"phoneOwner": mobilePhone.owner.name,
 			"phoneNumber": mobilePhone.number
 		}
-		this.mi5.trackCall(callObj);
+
+		this.calls.push(callObj);
+
     }
 
     text(mobilePhone, ...callees){
+
         const textArray = callees.map((callee, index) => {
             return  {
 				"type": "text",
@@ -29,7 +38,17 @@ export default class Person {
 				"phoneNumber": mobilePhone.number
 			}
         });
-		this.mi5.trackTexts(textArray);
+
+		this.texts.push(textArray);
+
+	}
+
+	getAllCalls() {
+		return this.calls;
+	}
+
+	getAllTexts() {
+		return this.texts;
 	}
 
 };

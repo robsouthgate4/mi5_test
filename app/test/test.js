@@ -1,32 +1,43 @@
 var chai = require('chai');
 chai.should();
 
+const expect = chai.expect;
+
+
 import Mi5 from '../scripts/Mi5.js';
 import Person from '../scripts/Mi5.js';
 
 describe('Mi5', function() {
-	describe('_removeLastNames', function() {
-
-		let mi5;
-
-		beforeEach(() => {
+	let mi5 = new Mi5();
+	beforeEach(() => {
 			mi5 = new Mi5();
+	});
+
+	describe('constructor', function() {
+
+		it('should have empty calls array', () => {
+			expect(mi5.calls).to.be.a('array');
 		});
 
-		it('returns the first name', () => {
-			mi5._removeLastNames('Dan Winters').should.equal('Dan');
-			mi5._removeLastNames('Dan Winters').should.be.a('string');
+		it('should have empty texts array', () => {
+			expect(mi5.texts).to.be.a('array');
 		});
 
 	});
 
-	describe('_convert toLogString()', function() {
+	describe('_removeLastNames', function() {
 
 		let mi5;
+		let name = 'Firstname Lastname';
 
 		beforeEach(() => {
 			mi5 = new Mi5();
 		});
+
+		it('should return just the first name', () => {
+			expect(mi5._removeLastNames(name)).to.equal('Lastname');
+		});
+
 	});
 });
 
