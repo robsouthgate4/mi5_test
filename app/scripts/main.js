@@ -116,7 +116,7 @@ function formatLogs(logs) {
 }
 
 const modal = document.querySelector('#modal');
-// Toggle modal visibilty
+
 function toggleModal() {
 	modal.classList.toggle('open');
 }
