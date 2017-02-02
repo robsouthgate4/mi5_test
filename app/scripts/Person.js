@@ -1,8 +1,6 @@
-
 export default class Person {
 
     constructor(name, profileImage, mobileNumber, personId) {
-
 		this.personId = personId;
         this.name = name;
 		this.mobileNumber = mobileNumber;
@@ -10,11 +8,9 @@ export default class Person {
 
 		this.calls = [];
 		this.texts = [];
-
     }
 
     call(mobilePhone, callee) {
-
 		const callObj =  {
 			"type": "call",
 			"from": this.name,
@@ -22,25 +18,20 @@ export default class Person {
 			"phoneOwner": mobilePhone.owner.name,
 			"phoneNumber": mobilePhone.number
 		}
-
 		this.calls.push(callObj);
-
     }
 
     text(mobilePhone, ...callees){
-
-        const textArray = callees.map((callee, index) => {
-            return  {
+        callees.forEach((callee, index) => {
+            let calleObj = {
 				"type": "text",
 				"from": this.name,
 				"to": callee.name,
 				"phoneOwner": mobilePhone.owner.name,
 				"phoneNumber": mobilePhone.number
 			}
+			this.texts.push(calleObj);
         });
-
-		this.texts.push(textArray);
-
 	}
 
 	getAllCalls() {
