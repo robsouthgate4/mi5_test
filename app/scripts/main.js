@@ -39,9 +39,6 @@ alex.text(phone2, erin);
 anthony.call(phone1, dan);
 anthony.text(phone3, dan, alex);
 
-erin.call(phone1, dan);
-erin.text(phone3, dan, alex);
-
 const personListItem = document.querySelectorAll('.person');
 
 // Person box click
@@ -74,7 +71,7 @@ function handlePersonClick(personNode) {
 // Out each person html
 function createPersonHtml(person) {
 	return `<article class="person" data-personid="${person.personId}">
-						<img src="../images/${person.profileImage}" alt=""/>
+						<img src="./images/${person.profileImage}" alt=""/>
 						<div>
 							<p> ${person.name} </p>
 							<span> ${person.mobileNumber} </span>
@@ -91,7 +88,7 @@ function writeLogsToDom(person, logs){
 
 	nameHtml.innerHTML = person.name;
 	phoneNumberHtml.innerHTML = person.mobileNumber;
-	profileImageHtml.src = `../images/${person.profileImage}`;
+	profileImageHtml.src = `./images/${person.profileImage}`;
 	logsHtml.innerHTML = removeCommas(logs);
 }
 
@@ -101,7 +98,7 @@ function removeCommas(item) {
 	if(typeof(tempItem) === 'string') {
 		return tempItem;
 	} else {
-		return tempItem.join("");
+		return tempItem.join('');
 	}
 }
 

@@ -13,11 +13,11 @@ export default class Person {
 
     call(mobilePhone, callee) {
 		const callObj =  {
-			"type": "call",
-			"from": this.firstName,
-			"to": this._getFirstName(callee.name),
-			"phoneOwner": this._getFirstName(mobilePhone.owner.name),
-			"phoneNumber": mobilePhone.number
+			'type': 'call',
+			'from': this.firstName,
+			'to': this._getFirstName(callee.name),
+			'phoneOwner': this._getFirstName(mobilePhone.owner.name),
+			'phoneNumber': mobilePhone.number
 		}
 		this.calls.push(callObj);
     }
@@ -25,11 +25,11 @@ export default class Person {
     text(mobilePhone, ...callees){
         callees.forEach((callee, index) => {
             let calleObj = {
-				"type": "text",
-				"from": this.firstName,
-				"to": this._getFirstName(callee.name),
-				"phoneOwner": this._getFirstName(mobilePhone.owner.name),
-				"phoneNumber": mobilePhone.number
+				'type': 'text',
+				'from': this.firstName,
+				'to': this._getFirstName(callee.name),
+				'phoneOwner': this._getFirstName(mobilePhone.owner.name),
+				'phoneNumber': mobilePhone.number
 			}
 			this.texts.push(calleObj);
         });
