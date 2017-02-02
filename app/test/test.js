@@ -8,6 +8,41 @@ import Person from '../scripts/Person.js';
 
 describe('Person', function() {
 
+	describe('constructor', function() {
+
+		let person;
+
+		beforeEach(() => {
+			person = new Person('Erin Davies', 'Erin_davis.png', '07375-229473', 3);
+		});
+
+		it('should create a new instance of person', () => {
+			expect(person).to.be.an.instanceof(Person);
+		});
+
+		it('should set name if provided', () => {
+			expect(person.name).to.equal("Erin Davies");
+		});
+
+		it('should set first name', () => {
+			expect(person.firstName).to.equal("Erin");
+		});
+
+		it('should set id if provided', () => {
+			expect(person.personId).to.equal(3);
+			expect(person.personId).to.be.a('number');
+		});
+
+		it('should set mobile number if provided', () => {
+			expect(person.mobileNumber).to.equal('07375-229473');
+		});
+
+		it('should set profile image if provided', () => {
+			expect(person.profileImage).to.equal('Erin_davis.png');
+		});
+
+	});
+
 	describe('_getFirstName', function() {
 
 		let person;
@@ -42,12 +77,12 @@ describe('Person', function() {
 			expect(callsArray).to.have.length(0);
 		});
 
-		it('calls array should get a new object', () => {
+		it('calls array should recieve a new object', () => {
 			person.call(phoneObj, person2);
 			expect(callsArray).to.have.length(1);
 		});
 
-		it('calls array should get two new objects', () => {
+		it('calls array should recieve two new objects', () => {
 			person.call(phoneObj, person2);
 			person.call(phoneObj, person2);
 			expect(callsArray).to.have.length(2);
@@ -63,6 +98,49 @@ describe('Person', function() {
 			}
 			person.call(phoneObj, person2);
 			expect(callsArray[0]).to.eql(testObj);
+		});
+
+	});
+
+	describe('text', function() {
+
+		let person;
+		let person2;
+		let phoneObj;
+		let textsArray = [];
+
+		beforeEach(() => {
+			person = new Person('Erin Davies', 'Erin_davis.png', '07375-229473', 3);
+			person2 = new Person('Rob Southgate', 'Erin_davis.png', '07375-229473', 3);
+			phoneObj = {owner: person, number:'07874438205'};
+			textsArray = person.texts;
+		});
+
+		it('texts array should be empty', () => {
+			expect(textsArray).to.have.length(0);
+		});
+
+		it('texts array should get a new object', () => {
+			person.text(phoneObj, person2);
+			expect(textsArray).to.have.length(1);
+		});
+
+		it('texts array should get two new objects', () => {
+			person.text(phoneObj, person2);
+			person.text(phoneObj, person2);
+			expect(textsArray).to.have.length(2);
+		});
+
+		it('new object should be in correct format', () => {
+			let testObj = {
+				"type": "text",
+				"from": "Erin",
+				"to": "Rob",
+				"phoneOwner": "Erin",
+				"phoneNumber": "07874438205"
+			}
+			person.text(phoneObj, person2);
+			expect(textsArray[0]).to.eql(testObj);
 		});
 
 	});
