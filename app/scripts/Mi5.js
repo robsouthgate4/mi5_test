@@ -1,6 +1,5 @@
 export default class Mi5 {
 
-    // Returns a set of logs per person
     log(person) {
 		const calls = person.getAllCalls();
 		const texts = person.getAllTexts();
@@ -13,13 +12,13 @@ export default class Mi5 {
 		}
     }
 
-	_convertToLogString(itemsToConvert) {
+	_convertToLogString(callsAndTexts) {
 		let stringArray = [];
-		itemsToConvert.forEach((item, index) => {
+		callsAndTexts.forEach((item, index) => {
 			if (item.type === 'call') {
-				stringArray.push(`<p>// ${this._removeLastNames(item.from)} called ${this._removeLastNames(item.to)} from ${this._removeLastNames(item.phoneOwner)}'s phone (${item.phoneNumber})</p>`);
+				stringArray.push(`<p>// ${item.from} called ${item.to} from ${item.phoneOwner}'s phone (${item.phoneNumber})</p>`);
 			} else {
-				stringArray.push(`<p>// ${this._removeLastNames(item.from)} texted ${this._removeLastNames(item.to)} from ${this._removeLastNames(item.phoneOwner)}'s phone (${item.phoneNumber})</p>`);
+				stringArray.push(`<p>// ${item.from} texted ${item.to} from ${item.phoneOwner}'s phone (${item.phoneNumber})</p>`);
 			}
 
 		});
@@ -29,11 +28,6 @@ export default class Mi5 {
 	_flattenArray(theArray) {
 		let flattenedArray = [].concat.apply([],theArray);
 		return flattenedArray;
-	}
-
-	_removeLastNames(name) {
-		let tempNAme = name;
-		return tempNAme.substr(0, tempNAme.indexOf(' '));
 	}
 
 };

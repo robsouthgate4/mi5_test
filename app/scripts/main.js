@@ -52,7 +52,6 @@ personListItem.forEach((personListItem, index) => {
 });
 
 // Close modal click
-
 const closeModal = document.querySelector('.close');
 
 closeModal.addEventListener('click', function(e){
@@ -63,7 +62,6 @@ closeModal.addEventListener('click', function(e){
 // Handle person click event
 function handlePersonClick(personNode) {
 	let personIdentifier = personNode.getAttribute('data-personid');
-
 	personArray.forEach((person, index) => {
 		if ( person.personId == personIdentifier ) {
 			let logs = mi5.log(person);
