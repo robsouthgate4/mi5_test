@@ -71,7 +71,7 @@ function handlePersonClick(personNode) {
 	toggleModal();
 }
 
-
+// Out each person html
 function createPersonHtml(person) {
 	return `<article class="person" data-personid="${person.personId}">
 						<img src="../images/${person.profileImage}" alt=""/>
@@ -82,7 +82,7 @@ function createPersonHtml(person) {
 			</article>`;
 }
 
-
+// Update modal copy to selected user
 function writeLogsToDom(person, logs){
 	const nameHtml = document.querySelector('.person-dialog p');
 	const phoneNumberHtml = document.querySelector('.person-dialog span');
@@ -95,8 +95,7 @@ function writeLogsToDom(person, logs){
 	logsHtml.innerHTML = removeCommas(logs);
 }
 
-const modal = document.querySelector('#modal');
-
+// Remove commas from array
 function removeCommas(item) {
 	let tempItem = item;
 	if(typeof(tempItem) === 'string') {
@@ -105,6 +104,10 @@ function removeCommas(item) {
 		return tempItem.join("");
 	}
 }
+
+// Modal toggle
+
+const modal = document.querySelector('#modal');
 
 function toggleModal() {
 	modal.classList.toggle('open');

@@ -145,9 +145,93 @@ describe('Person', function() {
 
 	});
 
+	describe('getAllCalls', function() {
+
+		let callsArray;
+		let person;
+		let phoneObj;
+
+		beforeEach(() => {
+			person = new Person('Erin Davies', 'Erin_davis.png', '07375-229473', 3);
+			phoneObj = {owner: person, number:'07874438205'};
+		});
+
+		it('calls array should return empty', () => {
+			callsArray = person.getAllCalls();
+			expect(callsArray).to.have.length(0);
+		});
+
+		it('calls array should return 1 object', () => {
+			person.call(phoneObj, person);
+			callsArray = person.getAllCalls();
+			expect(callsArray).to.have.length(1);
+		});
+
+	});
+
+	describe('getAllTexts', function() {
+
+		let textsArray;
+		let person;
+		let phoneObj;
+
+		beforeEach(() => {
+			person = new Person('Erin Davies', 'Erin_davis.png', '07375-229473', 3);
+			phoneObj = {owner: person, number:'07874438205'};
+		});
+
+		it('texts array should return empty', () => {
+			textsArray = person.getAllTexts();
+			expect(textsArray).to.have.length(0);
+		});
+
+		it('texts array should return 1 object', () => {
+			person.text(phoneObj, person);
+			textsArray = person.getAllTexts();
+			expect(textsArray).to.have.length(1);
+		});
+
+		it('texts array should return 2 objects', () => {
+			person.text(phoneObj, person, person);
+			textsArray = person.getAllTexts();
+			expect(textsArray).to.have.length(2);
+		});
+
+	});
+
 });
 
 describe('Mi5', function() {
+
+	describe('_log', function() {
+
+		let mi5;
+		let person;
+		let person2;
+		let noEntryString = '';
+		let	phoneObj;
+		let logsArray = [];
+
+		beforeEach(() => {
+			noEntryString = '<p>No Entries</p>';
+			person = new Person('Rob Southgate', 'Erin_davis.png', '07375-229473', 3);
+			person2 = new Person('Erin Davies', 'Erin_davis.png', '07375-229473', 1);
+			phoneObj = {owner: person2, number:'07874438205'};
+			logsArray = [`<p>// Rob called Erin from Erin's phone (07874438205)</p>`]
+			mi5 = new Mi5();
+		});
+
+		it('Should return No Entries if calls and texts are empty', () => {
+			expect(mi5.log(person)).to.be.eql(noEntryString);
+		});
+
+		it('Should return array of calls and texts', () => {
+			person.call(phoneObj, person2);
+			expect(mi5.log(person)).to.be.eql(logsArray);
+		});
+
+
+	});
 
 	describe('_flattenArray', function() {
 

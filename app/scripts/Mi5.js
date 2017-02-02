@@ -1,6 +1,7 @@
 export default class Mi5 {
 
     log(person) {
+
 		const calls = person.getAllCalls();
 		const texts = person.getAllTexts();
 		const callsAndTexts = this._flattenArray([calls, texts]);
